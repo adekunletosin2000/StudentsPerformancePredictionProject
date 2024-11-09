@@ -1,0 +1,1 @@
+## This is project tends to predicts stydents performance based on the some parameters used for training.
