@@ -9,7 +9,7 @@ from sklearn.ensemble import (
     RandomForestRegressor,
 )
 from sklearn.metrics import r2_score
-from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.linear_model import LinearRegression, Lasso
 from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
@@ -48,7 +48,6 @@ class ModelTrainer:
             models = {
                 "Linear Regressor": LinearRegression(),
                 "Lasso": Lasso(),
-                "Ridge": Ridge(),
                 "K-Neighbours Regressor": KNeighborsRegressor(),
                 "Decision Tree Regressor": DecisionTreeRegressor(),
                 "Random Forest Regressor": RandomForestRegressor(),
@@ -57,8 +56,20 @@ class ModelTrainer:
                 "Ada Boost Regressor": AdaBoostRegressor()
             }
 
+            # Define hyperparameter grid for models
+            params = {
+                "Linear Regressor": {},
+                "Lasso": {'alpha': [0.1, 1, 10, 100]},
+                "K-Neighbours Regressor": {'n_neighbors': [3, 5, 10]},
+                "Decision Tree Regressor": {'min_samples_split': [2, 5, 10]},
+                "Random Forest Regressor": {'n_estimators': [100, 200, 500], 'min_samples_split': [2, 5, 10]},
+                "XGBRegression": {'n_estimators': [100, 200, 500], 'learning_rate': [0.01, 0.1, 0.3], 'subsample': [0.8, 0.9, 1.0]},
+                "Cat Boost Regressor": {'iterations': [50, 100, 200], 'learning_rate': [0.01, 0.05, 0.1]},
+                "Ada Boost Regressor": {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 1.0]}
+            }
+
             # Call the evaluate_models function, passing the required arguments
-            report: dict = evaluate_models(X_train, y_train, models)
+            report: dict = evaluate_models(X_train, y_train, X_test, y_test, models, params)
             
             # Find the best model based on R2 score
             best_model_score = max(sorted(report.values()))
@@ -70,6 +81,9 @@ class ModelTrainer:
                 raise CustomException("No best model found")
 
             logging.info("Best model found based on R2 score")
+
+            # Fit the best model before using it for prediction
+            best_model.fit(X_train, y_train)
 
             # Save the best model
             save_obj(file_path=self.model_trainer_config.trained_model_file_path, obj=best_model)
