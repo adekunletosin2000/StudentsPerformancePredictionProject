@@ -53,7 +53,7 @@ class ModelTrainer:
                 "Decision Tree Regressor": DecisionTreeRegressor(),
                 "Random Forest Regressor": RandomForestRegressor(),
                 "XGBRegression": XGBRegressor(),
-                "Cat Boost Regressor": CatBoostRegressor(verbose=False),
+                #"Cat Boost Regressor": CatBoostRegressor(verbose=False),
                 "Ada Boost Regressor": AdaBoostRegressor()
             }
 
@@ -65,7 +65,7 @@ class ModelTrainer:
                 "Decision Tree Regressor": {'min_samples_split': [2, 5, 10]},
                 "Random Forest Regressor": {'n_estimators': [100, 200, 500], 'min_samples_split': [2, 5, 10]},
                 "XGBRegression": {'n_estimators': [100, 200, 500], 'learning_rate': [0.01, 0.1, 0.3], 'subsample': [0.8, 0.9, 1.0]},
-                "Cat Boost Regressor": {'iterations': [50, 100, 200], 'learning_rate': [0.01, 0.05, 0.1]},
+                #"Cat Boost Regressor": {'iterations': [50, 100, 200], 'learning_rate': [0.01, 0.05, 0.1]},
                 "Ada Boost Regressor": {'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 1.0]}
             }
 
