@@ -1,1 +1,1 @@
-## This is project tends to predicts stydents performance based on the some parameters used for training.
+## This project tends to predicts students performance based on the some parameters used for training.

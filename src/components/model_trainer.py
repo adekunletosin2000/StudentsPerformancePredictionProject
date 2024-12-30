@@ -1,5 +1,6 @@
 import os
 import sys
+import flask
 from dataclasses import dataclass
 
 from catboost import CatBoostRegressor
