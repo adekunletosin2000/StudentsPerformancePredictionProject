@@ -60,5 +60,5 @@ def load_object(file_path):
         with open(file_path, "rb") as file_obj:
             return dill.load(file_obj)
             
-    except exception as e:
+    except Exception as e:
         raise CustomException(e, sys)
